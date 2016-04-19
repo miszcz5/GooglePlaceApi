@@ -1,0 +1,19 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.item {
+    flex: 1;
+    display: flex;
+    min-height: 300px;
+    min-width: 300px;
+}
+.item>div {
+    flex: 1;
+}
