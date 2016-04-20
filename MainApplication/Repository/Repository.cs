@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace MainApplication.Repository {
     public class Repository : IRepository {
@@ -17,9 +18,9 @@ namespace MainApplication.Repository {
             return storageProvider.AddLocation(location);
         }
 
-        public BarModel GetBars(Location location) {
-            var bars = storageProvider.GetBars(location).ToList();
-            return new BarModel { draw = 1, recordsTotal = 1, data = bars, recordsFiltered = bars.Count() };
+        public BarModel GetBars(Location location, string search, int draw) {
+            var bars = storageProvider.GetBars(location).Where(x=>x.Name.Contains(search)).ToList();
+            return new BarModel { draw = draw, recordsTotal = 1, data = bars, recordsFiltered = bars.Count() };
 
         }
     }

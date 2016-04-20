@@ -34,6 +34,7 @@ function ShowLocations() {
         "ajax": {
             "url": "api/places/AllLocations",
             "type": "GET"
+
         },
         "columns": [
             { "data": "Latitude" },
@@ -48,12 +49,11 @@ function ShowBars(location) {
     }
     details = $('#details').DataTable({
         "serverSide": true,
-        "filter": false,
         "info": false,
         "paging": false,
         "ajax": {
             "url": "api/places/GetBars?&latitude=" + location.Latitude + "&longitude=" + location.Longitude,
-            "type": "GET"
+            "type": "GET",
         },
         "columns": [
             { "data": "Name" }

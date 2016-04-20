@@ -2,6 +2,6 @@
     public interface IRepository {
         LocationModel GetLocations();
         bool AddLocation(Location location);
-        BarModel GetBars(Location location);
+        BarModel GetBars(Location location, string search, int draw);
     }
 }

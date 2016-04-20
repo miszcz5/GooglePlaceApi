@@ -36,7 +36,12 @@ namespace WebApplication.Controllers {
         [Route("api/places/GetBars")]
         public BarModel GetBars(double latitude, double longitude) {
             try {
-                return repository.GetBars(new Location { Latitude = latitude, Longitude = longitude });
+                var search = Request.GetQueryNameValuePairs().Where(nv => nv.Key == "search.value").Select(nv => nv.Value).FirstOrDefault();
+                var draw = Request.GetQueryNameValuePairs().Where(nv => nv.Key == "draw").Select(nv => nv.Value).FirstOrDefault();
+                int intDraw;
+                int.TryParse(draw, out intDraw);
+
+                return repository.GetBars(new Location { Latitude = latitude, Longitude = longitude }, search,intDraw);
             }
             catch (ArgumentNullException) {
                 var resp = new HttpResponseMessage(HttpStatusCode.NotFound) {
