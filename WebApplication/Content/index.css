@@ -13,7 +13,13 @@
     display: flex;
     min-height: 300px;
     min-width: 300px;
+    flex-direction: column;
 }
 .item>div {
     flex: 1;
+}
+
+#add {
+    width: 200px;
+    height: 30px;
 }

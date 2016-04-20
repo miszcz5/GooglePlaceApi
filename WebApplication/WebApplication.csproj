@@ -172,8 +172,6 @@
     <Content Include="scripts\jquery.bootgrid.fa.min.js" />
     <Content Include="scripts\jquery.bootgrid.js" />
     <Content Include="scripts\jquery.bootgrid.min.js" />
-    <Content Include="scripts\knockout-3.4.0.debug.js" />
-    <Content Include="scripts\knockout-3.4.0.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using GoogleApi.ReadModels;
 using MainApplication;
 using Newtonsoft.Json;
@@ -12,12 +13,14 @@ namespace GoogleApi {
     public class DataProvider : IDataProvider {
         private const string Type = "restaurant";
         private const int Radius = 2000;
-        private const string Key = "AIzaSyAHnDojAaLlZ8C9ArUCaZ2ge4mINlcfnlw";
-        private readonly string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+        private readonly string key;
+        private readonly string url;
         private readonly WebClient webClient;
 
 
         public DataProvider() {
+            key=ConfigurationManager.AppSettings["googleKey"];
+            url = ConfigurationManager.AppSettings["googleUrl"];
             webClient = new WebClient();
         }
 
@@ -36,7 +39,7 @@ namespace GoogleApi {
         }
 
         private string GetUrl(Location location) {
-            return Format(System.Globalization.CultureInfo.InvariantCulture, url + "location={0},{1}&type={2}&radius={3}&key={4}", location.Latitude, location.Longitude, Type, Radius, Key);
+            return Format(CultureInfo.InvariantCulture, url + "location={0},{1}&type={2}&radius={3}&key={4}", location.Latitude, location.Longitude, Type, Radius, key);
         }
     }
 }

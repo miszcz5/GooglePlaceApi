@@ -9,11 +9,12 @@ using MainApplication;
 using Storage.ReadModels;
 
 namespace Storage {
-    public class StorageService: IStorageProvider {
+    public class StorageService : IStorageProvider {
         private readonly IDataProvider dataProvider;
 
         public StorageService(IDataProvider dataProvider) {
             this.dataProvider = dataProvider;
+            this.AddLocation(new DefaultLocation());
         }
 
         public bool AddLocation(Location location) {
@@ -26,7 +27,7 @@ namespace Storage {
                 return true;
             }
         }
-        public  bool Delete(Location location) {
+        public bool Delete(Location location) {
             using (var context = new LocationBarsDbContext()) {
                 var locationBars = FindLocation(context.LocationBarsEntities, location);
                 if (locationBars == null) return true;
@@ -39,7 +40,7 @@ namespace Storage {
             IList<Location> result = new List<Location>();
             using (var context = new LocationBarsDbContext()) {
                 foreach (var locationBarsEntity in context.LocationBarsEntities.ToList()) {
-                    result.Add(new Location {Latitude = locationBarsEntity.Location.Latitude, Longitude = locationBarsEntity.Location.Longitude});
+                    result.Add(new Location { Latitude = locationBarsEntity.Location.Latitude, Longitude = locationBarsEntity.Location.Longitude });
                 }
             }
             return result;
@@ -48,9 +49,12 @@ namespace Storage {
         public IEnumerable<Bar> GetBars(Location location) {
             IList<Bar> bars = new List<Bar>();
             using (var context = new LocationBarsDbContext()) {
-               var locationBars = FindLocation(context.LocationBarsEntities, location);
+                var locationBars = FindLocation(context.LocationBarsEntities, location);
+                if (locationBars == null) {
+                    throw new ArgumentNullException(nameof(location), "location not found");
+                }
                 foreach (var bar in locationBars.BarEntities) {
-                    bars.Add(new Bar {Name = bar.Name});
+                    bars.Add(new Bar { Name = bar.Name });
                 }
             }
             return bars;

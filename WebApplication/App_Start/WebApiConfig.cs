@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using GoogleApi;
 using MainApplication;
+using MainApplication.Repository;
 using Microsoft.Practices.Unity;
 using Storage;
 using WebApplication.Resolver;
@@ -17,7 +18,7 @@ namespace WebApplication
             // Web API configuration and services
             var container = new UnityContainer();
             container.RegisterType<IDataProvider, DataProvider>(new HierarchicalLifetimeManager());
-            container.RegisterType<IStorageProvider, StorageService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IStorageProvider, StorageService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRepository, Repository>(new HierarchicalLifetimeManager());
 
             config.DependencyResolver = new UnityResolver(container);

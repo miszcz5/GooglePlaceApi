@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GoogleApi.ReadModels;
+﻿using GoogleApi.ReadModels;
 using MainApplication;
 
 namespace GoogleApi {
